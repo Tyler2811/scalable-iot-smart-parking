@@ -1,0 +1,42 @@
+services:
+  occupancy-service:
+    build:
+      context: ./occupancy-service
+    container_name: smart-parking-occupancy
+    ports:
+      - "3001:3001"
+    environment:
+      AWS_REGION: ap-southeast-2
+      AWS_PROFILE: default
+    volumes:
+      - type: bind
+        source: ${USERPROFILE}/.aws
+        target: /root/.aws
+        read_only: true
+    restart: unless-stopped
+
+  api-service:
+    build:
+      context: ./api-service
+    container_name: smart-parking-api
+    ports:
+      - "3002:3002"
+    environment:
+      AWS_REGION: ap-southeast-2
+      AWS_PROFILE: default
+    volumes:
+      - type: bind
+        source: ${USERPROFILE}/.aws
+        target: /root/.aws
+        read_only: true
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: ./dashboard
+    container_name: smart-parking-dashboard
+    ports:
+      - "5173:80"
+    depends_on:
+      - api-service
+    restart: unless-stopped
