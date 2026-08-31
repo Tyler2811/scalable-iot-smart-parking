@@ -1,0 +1,98 @@
+[
+    {
+        "id": "07d25d5ebcf748dd",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b7b11518766154a8",
+        "type": "mqtt in",
+        "z": "07d25d5ebcf748dd",
+        "name": "",
+        "topic": "tyler2811/parking/+/+/status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fdb4336ed6bdb211",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 320,
+        "wires": [
+            [
+                "f9dad128880cdc78"
+            ]
+        ]
+    },
+    {
+        "id": "f9dad128880cdc78",
+        "type": "function",
+        "z": "07d25d5ebcf748dd",
+        "name": "Validate Parking Event",
+        "func": "let data = msg.payload;\n\n// Convert Buffer to text if needed\nif (Buffer.isBuffer(data)) {\n    data = data.toString('utf8');\n}\n\n// Convert JSON text into a JavaScript object\nif (typeof data === 'string') {\n    try {\n        data = JSON.parse(data);\n    } catch (error) {\n        node.warn('Invalid JSON message');\n        return null;\n    }\n}\n\n// Check required parking event fields\nif (\n    !data ||\n    !data.eventId ||\n    !data.carParkId ||\n    !data.spaceId ||\n    typeof data.occupied !== 'boolean' ||\n    !data.timestamp\n) {\n    node.warn('Invalid parking event');\n    return null;\n}\n\n// Save the converted object back into msg.payload\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "1ea3b166e3015e39"
+            ]
+        ]
+    },
+    {
+        "id": "1ea3b166e3015e39",
+        "type": "debug",
+        "z": "07d25d5ebcf748dd",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "fdb4336ed6bdb211",
+        "type": "mqtt-broker",
+        "name": "Hive MQTT",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
