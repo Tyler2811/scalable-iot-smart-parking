@@ -4,6 +4,7 @@ const broker = 'mqtt://broker.hivemq.com';
 const client = mqtt.connect(broker);
 
 const numberOfSpaces = 10;
+const runId = Date.now();
 const spaces = [];
 
 for (let i = 1; i <= numberOfSpaces; i++) {
@@ -36,7 +37,7 @@ function generateParkingEvent() {
   space.sequenceNumber++;
 
   const event = {
-    eventId: `CP01-${space.spaceId}-${space.sequenceNumber}`,
+    eventId: `CP01-${space.spaceId}-${runId}-${space.sequenceNumber}`,
     carParkId: 'CP01',
     spaceId: space.spaceId,
     occupied: space.occupied,
