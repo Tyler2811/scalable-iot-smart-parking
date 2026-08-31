@@ -1,5 +1,9 @@
-const numberOfSpaces = 10;
+const mqtt = require('mqtt');
 
+const broker = 'mqtt://broker.hivemq.com';
+const client = mqtt.connect(broker);
+
+const numberOfSpaces = 10;
 const spaces = [];
 
 for (let i = 1; i <= numberOfSpaces; i++) {
@@ -10,10 +14,19 @@ for (let i = 1; i <= numberOfSpaces; i++) {
   });
 }
 
-console.log('Smart Parking Simulator Started');
-console.log('Car Park: CP01');
-console.log(`Parking Spaces: ${numberOfSpaces}`);
-console.log('--------------------------------');
+client.on('connect', () => {
+  console.log('Connected to MQTT Broker');
+  console.log('Smart Parking Simulator Started');
+  console.log('Car Park: CP01');
+  console.log(`Parking Spaces: ${numberOfSpaces}`);
+  console.log('--------------------------------');
+
+  setInterval(generateParkingEvent, 3000);
+});
+
+client.on('error', (error) => {
+  console.log('MQTT Error:', error.message);
+});
 
 function generateParkingEvent() {
   const randomIndex = Math.floor(Math.random() * spaces.length);
@@ -32,7 +45,11 @@ function generateParkingEvent() {
     timestamp: new Date().toISOString()
   };
 
-  console.log(event);
-}
+  const topic = `tyler2811/parking/CP01/${space.spaceId}/status`;
 
-setInterval(generateParkingEvent, 3000);
+  client.publish(topic, JSON.stringify(event));
+
+  console.log(`Published to: ${topic}`);
+  console.log(event);
+  console.log('--------------------------------');
+}
