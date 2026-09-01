@@ -1,0 +1,21 @@
+{
+  "cluster": "smart-parking-cluster",
+  "serviceName": "smart-parking-api-service",
+  "taskDefinition": "smart-parking-api",
+  "desiredCount": 1,
+  "launchType": "FARGATE",
+  "platformVersion": "LATEST",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-0010b4b485701592a",
+        "subnet-0dd93860eaccdc398",
+        "subnet-01f7b16e399b84f6d"
+      ],
+      "securityGroups": [
+        "sg-0a79eeaf3d1a03aec"
+      ],
+      "assignPublicIp": "ENABLED"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import './style.css';
 
-const API_URL = 'http://127.0.0.1:3002';
+const API_URL =
+  import.meta.env.VITE_API_URL || 'http://127.0.0.1:3002';
 
 document.querySelector('#app').innerHTML = `
   <div class="dashboard">

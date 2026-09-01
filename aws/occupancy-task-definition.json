@@ -1,0 +1,39 @@
+{
+  "family": "smart-parking-occupancy",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::814777258640:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::814777258640:role/smartParkingTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "smart-parking-occupancy",
+      "image": "814777258640.dkr.ecr.ap-southeast-2.amazonaws.com/smart-parking-occupancy:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3001,
+          "hostPort": 3001,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "AWS_REGION",
+          "value": "ap-southeast-2"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/smart-parking-occupancy",
+          "awslogs-region": "ap-southeast-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
