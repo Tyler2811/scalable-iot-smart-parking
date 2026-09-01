@@ -24,6 +24,10 @@
         {
           "name": "AWS_REGION",
           "value": "ap-southeast-2"
+        },
+        {
+          "name": "SQS_QUEUE_URL",
+          "value": "https://sqs.ap-southeast-2.amazonaws.com/814777258640/smart-parking-events"
         }
       ],
       "logConfiguration": {
