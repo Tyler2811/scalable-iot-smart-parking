@@ -1,0 +1,9 @@
+{
+  "TargetValue": 2000.0,
+  "PredefinedMetricSpecification": {
+    "PredefinedMetricType": "ALBRequestCountPerTarget",
+    "ResourceLabel": "app/smart-parking-api-alb/b463aeb4f0df9712/targetgroup/smart-parking-api-tg/df9f2d9d2f6a6e5a"
+  },
+  "ScaleOutCooldown": 60,
+  "ScaleInCooldown": 120
+}
