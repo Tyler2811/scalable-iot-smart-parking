@@ -1,19 +1,8 @@
 \# Scalable IoT Smart Parking Management System
-
-
-
 A scalable IoT smart parking system developed for SIT314. The project simulates parking sensors, processes parking events through an MQTT and cloud-based pipeline, stores parking data in AWS, and provides a web dashboard for monitoring parking occupancy and sensor status.
 
-
-
 \## Architecture
-
-
-
 The implemented system uses the following pipeline:
-
-
-
 Node.js Parking Simulator  
 
 → MQTT / HiveMQ  
@@ -34,11 +23,7 @@ Node.js Parking Simulator
 
 → Web Dashboard
 
-
-
 \## Main Features
-
-
 
 \- Simulates 10 IoT parking sensors (S001-S010).
 
@@ -67,8 +52,6 @@ Node.js Parking Simulator
 \- Supports ECS Service Auto Scaling from 1 to 3 API tasks.
 
 \- Uses CloudWatch for application logging and monitoring.
-
-
 
 \## Project Structure
 
